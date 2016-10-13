@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WHWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="179.5" y="374.5"/>
+        </scene>
+        <!--Side Menu Controller-->
+        <scene sceneID="b0C-DD-t5T">
+            <objects>
+                <viewController storyboardIdentifier="SideMenuController" id="Lk5-IM-xFE" customClass="sideMenuController" customModule="WHWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mGp-Yk-Hhn"/>
+                        <viewControllerLayoutGuide type="bottom" id="2vW-Tf-ujg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V2p-nJ-TiE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rvM-FW-peg">
+                                <rect key="frame" x="20" y="28" width="150" height="150"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ghc-Ec-Kxa">
+                                <rect key="frame" x="0.0" y="215" width="375" height="452"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sideMenuCell" rowHeight="100" id="xEL-Ji-J9Z">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xEL-Ji-J9Z" id="lXi-p7-hX1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-Go-esB">
+                                <rect key="frame" x="20" y="186" width="150" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Ghc-Ec-Kxa" secondAttribute="trailing" id="S9s-yd-qBy"/>
+                            <constraint firstItem="Ghc-Ec-Kxa" firstAttribute="leading" secondItem="V2p-nJ-TiE" secondAttribute="leading" id="a82-Pv-wKM"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <outlet property="sideMenuImage" destination="rvM-FW-peg" id="LTZ-ar-RtF"/>
+                        <outlet property="sideMenuLabel" destination="sEI-Go-esB" id="z2Q-19-iFp"/>
+                        <outlet property="sideMenuTable" destination="Ghc-Ec-Kxa" id="l0C-7o-bQo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ekx-bq-avi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="811.5" y="374.5"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="AEy-rU-2ix">
+            <objects>
+                <viewController storyboardIdentifier="homeController" id="NL0-Nd-g19" customClass="homeViewController" customModule="WHWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uPz-Oq-dAR"/>
+                        <viewControllerLayoutGuide type="bottom" id="4zw-kv-KCd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sxj-80-brR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.5991903516" green="0.80008671580000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Gwg-ce-RqE" appends="YES" id="YCf-xA-eDa"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="oLG-6h-UBv">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="0Zn-C1-E6a"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="d81-Gj-grg"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="pullOutMenu" destination="Gwg-ce-RqE" id="Hnu-j9-WvF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yoy-hq-85b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Gwg-ce-RqE"/>
+            </objects>
+            <point key="canvasLocation" x="954" y="1109"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mtG-xD-cCp">
+            <objects>
+                <navigationController storyboardIdentifier="HomeNavigationController" id="RY4-Zd-pLR" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GCt-ha-LgY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="NL0-Nd-g19" kind="relationship" relationship="rootViewController" id="7GV-oo-mhe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HGZ-4p-Bmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="282" y="1109"/>
+        </scene>
+    </scenes>
+</document>
