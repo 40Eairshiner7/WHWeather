@@ -10,7 +10,6 @@ import UIKit
 
 class homeViewController: UIViewController {
     
-    
     @IBOutlet var pullOutMenu: UIPanGestureRecognizer!
     
     override func viewDidLoad() {

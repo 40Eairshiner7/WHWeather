@@ -15,30 +15,36 @@ class sideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var sideMenuTable: UITableView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         sideMenuTable.delegate = self
         sideMenuTable.dataSource = self
         sideMenuTable.tableFooterView = UIView()
         sideMenuImage.image = UIImage(named: "Icon")
         sideMenuLabel.text = "Fuzhouuuuuuuuuuuuuuuuuuuuu"
-        sideMenuLabel.font = UIFont.systemFontOfSize(30)
-        sideMenuTable.separatorStyle = .None
+        sideMenuLabel.font = UIFont.systemFont(ofSize: 30)
+        sideMenuTable.separatorStyle = .none
+        super.viewDidLoad()
     }
+        
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "sideMenuCell", for: indexPath)
+        cell.textLabel!.text = "unknownnnnnnnnnnnnnnnn"
+        cell.tintColor = UIColor.black
+        cell.backgroundColor = UIColor.clear
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 30)
+        sideMenuLabel.backgroundColor = UIColor.black
+        return cell
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("sideMenuCell", forIndexPath: indexPath)
-        cell.textLabel!.text = "unknownnnnnnnnnnnnnnnn"
-        cell.tintColor = UIColor.blackColor()
-        cell.backgroundColor = UIColor.clearColor()
-        cell.textLabel?.font = UIFont.systemFontOfSize(30)
-        return cell
-    }
 }

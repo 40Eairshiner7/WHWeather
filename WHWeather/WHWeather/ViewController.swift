@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class ViewController: UIViewController {
     
@@ -21,8 +41,8 @@ class ViewController: UIViewController {
     var centerOfSideMenu:CGPoint!
     var centerOfHomeView:CGPoint!
     
-    var screenWidth = UIScreen.mainScreen().bounds.maxX
-    var screenHeight = UIScreen.mainScreen().bounds.maxY
+    var screenWidth = UIScreen.main.bounds.maxX
+    var screenHeight = UIScreen.main.bounds.maxY
     
     var distanceLeftLimit:CGFloat!
     var distanceRightLimit:CGFloat!
@@ -47,22 +67,22 @@ class ViewController: UIViewController {
     
     func backViewDidLoad() {
         let imageView = UIImageView(image: UIImage(named: "back2"))
-        imageView.frame = UIScreen.mainScreen().bounds
+        imageView.frame = UIScreen.main.bounds
         self.view.addSubview(imageView)
     }
     
     func sideMenuDidLoad() {
-        sideController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuController") as! sideMenuController
-        sideController.view.center = CGPointMake(-self.view.center.x * 0.7, sideController.view.center.y)
-        sideController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.7, 1)
-        sideController.view.backgroundColor = UIColor.clearColor()
+        sideController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! sideMenuController
+        sideController.view.center = CGPoint(x: -self.view.center.x * 0.7, y: sideController.view.center.y)
+        sideController.view.transform = CGAffineTransform.identity.scaledBy(x: 0.7, y: 1)
+        sideController.view.backgroundColor = UIColor.clear
         self.view.addSubview(sideController.view)
         centerOfSideMenu = sideController.view.center
     }
     
     func mainViewDidload() {
         mainView = UIView(frame: self.view.frame)
-        homeNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("HomeNavigationController") as! UINavigationController
+        homeNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeNavigationController") as! UINavigationController
         homeController = homeNavigationController.viewControllers.first as! homeViewController
         homeController.navigationItem.leftBarButtonItem?.action = #selector(ViewController.showLeft)
         centerOfHomeView = mainView.center
@@ -78,26 +98,26 @@ class ViewController: UIViewController {
     
     func gestureInit() {
         let panGesture = homeController.pullOutMenu
-        panGesture.addTarget(self, action: #selector(ViewController.pan(_:)))
-        homeController.view.addGestureRecognizer(panGesture)
+        panGesture?.addTarget(self, action: #selector(ViewController.pan(_:)))
+        homeController.view.addGestureRecognizer(panGesture!)
         tapGesture = UITapGestureRecognizer(target:self,action:#selector(ViewController.showHome))
     }
     
-    func pan(recongnizer: UIPanGestureRecognizer) {
+    func pan(_ recongnizer: UIPanGestureRecognizer) {
         
-        let Distance = recongnizer.translationInView(self.view).x
+        let Distance = recongnizer.translation(in: self.view).x
         
         if centerOfSideMenu.x + Distance > distanceLeftLimit && centerOfSideMenu.x + Distance < distanceRightLimit {
             
-            sideController.view!.center = CGPointMake(centerOfSideMenu.x + Distance, sideController.view.center.y)
+            sideController.view!.center = CGPoint(x: centerOfSideMenu.x + Distance, y: sideController.view.center.y)
             
-            mainView.center = CGPointMake(centerOfHomeView.x + Distance, mainView.center.y)
+            mainView.center = CGPoint(x: centerOfHomeView.x + Distance, y: mainView.center.y)
             let tmp:CGFloat = 1 - (centerOfHomeView.x + Distance - centerOfHomeViewAtBegin.x) / (screenWidth * 2)
-            mainView.transform = CGAffineTransformScale(CGAffineTransformIdentity, tmp, tmp)
+            mainView.transform = CGAffineTransform.identity.scaledBy(x: tmp, y: tmp)
             
         }
         
-        if recongnizer.state == UIGestureRecognizerState.Ended {
+        if recongnizer.state == UIGestureRecognizerState.ended {
             
             if centerOfSideMenu.x > 0 {
                 centerOfSideMenu = sideController.view.center
@@ -132,17 +152,17 @@ class ViewController: UIViewController {
         doTheAnimate("home")
     }
     
-    func doTheAnimate(showWhat: String) {
-        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+    func doTheAnimate(_ showWhat: String) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
             
             if showWhat == "left" {
-                self.sideController.view.center = CGPointMake(self.distanceRightLimit, self.sideController.view.center.y)
-                self.mainView.center = CGPointMake(self.screenWidth * 1.2, self.mainView.center.y)
-                self.mainView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.7, 0.7)
+                self.sideController.view.center = CGPoint(x: self.distanceRightLimit, y: self.sideController.view.center.y)
+                self.mainView.center = CGPoint(x: self.screenWidth * 1.2, y: self.mainView.center.y)
+                self.mainView.transform = CGAffineTransform.identity.scaledBy(x: 0.7, y: 0.7)
             }else {
-                self.sideController.view.center = CGPointMake(self.distanceLeftLimit, self.sideController.view.center.y)
-                self.mainView.center = CGPointMake(self.screenWidth * 0.5, self.mainView.center.y)
-                self.mainView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1)
+                self.sideController.view.center = CGPoint(x: self.distanceLeftLimit, y: self.sideController.view.center.y)
+                self.mainView.center = CGPoint(x: self.screenWidth * 0.5, y: self.mainView.center.y)
+                self.mainView.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
             }
             self.centerOfSideMenu = self.sideController.view.center
             self.centerOfHomeView = self.mainView.center
