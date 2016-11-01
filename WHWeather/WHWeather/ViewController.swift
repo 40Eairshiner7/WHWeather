@@ -28,7 +28,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, showHomeView {
     
     var sideController:sideMenuController!
     var homeController:homeViewController!
@@ -49,6 +49,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         distanceLeftLimit = -self.view.center.x * 0.7
         distanceRightLimit = self.view.center.x * 0.7
         
@@ -58,7 +59,7 @@ class ViewController: UIViewController {
         rootInit()
         gestureInit()
         
-        
+        sideController.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +75,7 @@ class ViewController: UIViewController {
     func sideMenuDidLoad() {
         sideController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! sideMenuController
         sideController.view.center = CGPoint(x: -self.view.center.x * 0.7, y: sideController.view.center.y)
-        sideController.view.transform = CGAffineTransform.identity.scaledBy(x: 0.7, y: 1)
+        sideController.view.transform = CGAffineTransform.identity.scaledBy(x: 0.7, y: 0.7)
         sideController.view.backgroundColor = UIColor.clear
         self.view.addSubview(sideController.view)
         centerOfSideMenu = sideController.view.center
@@ -168,6 +169,42 @@ class ViewController: UIViewController {
             self.centerOfHomeView = self.mainView.center
             
             } , completion: nil)
+    }
+    
+    func cityAlert() {
+        let alert = UIAlertController(title: "Get Weather", message: "Enter City!", preferredStyle: .alert)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let ok = UIAlertAction(title: "OK", style: .default) { (action: UIAlertAction) -> Void in
+            let textField = alert.textFields![0]
+            let city = textField.text
+            if city != nil {
+                CITY_NAME = city!
+                CURRENT_WEATHER_URL_BY_CITY_NAME = "\(BASE_URL)\(WEATHER)\(BY_CITY_NAME)\(CITY_NAME)\(API_ID)\(WH_KEY)"
+                FORECAST_URL_BY_CITY_NAME = "\(BASE_URL)\(DAILY_FORECAST)\(BY_CITY_NAME)\(CITY_NAME)\(COUNT)\(DAYS_COUNT)\(RESULT_MODE_JSON)\(API_ID)\(WH_KEY)"
+                self.homeController.cityModel()
+            }
+        }
+        
+        alert.addTextField { (textField: UITextField) -> Void in
+            textField.placeholder = "City Name, Country"
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+
+    }
+    
+    func cityToHome() {
+        showHome()
+        cityAlert()
+    }
+    
+    func locationToHome() {
+        showHome()
+        homeController.locationModel()
     }
 
 }
